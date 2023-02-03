@@ -1,91 +1,105 @@
+"use client"
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Calendar from 'react-calendar';
+import { HiUserCircle } from 'react-icons/hi'
+import { IoMdNotifications } from 'react-icons/io'
+import {ImArrowUpRight2} from 'react-icons/im'
+import {ImArrowDownRight2} from 'react-icons/im'
+import TruffleLogo from '../public/assets/logos/Logo.png'
+import Sidebar from '@/components/dashboard/sidebar'
+import DashboardImg1 from '../public/assets/icons/dashboard-icons/dashboard-icon-1.png'
+import DashboardImg2 from '../public/assets/icons/dashboard-icons/dashboard-icon-2.png'
+import InfoImg from '../public/assets/icons/dashboard-icons/dashboard-icon-info.png'
+import { useState } from 'react';
+import 'react-calendar/dist/Calendar.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const balanceMenu = [
+  {name: 'Fiat Balance', balance: '$00,000', icon: DashboardImg1},
+  {name: 'Crypto Balance',balance: '$00,000', icon: DashboardImg1},
+  {name: 'Recievables', balance: '$00,000',icon: DashboardImg2},
+  {name: 'Payables',balance: '$00,000', icon: DashboardImg2},
+]
+
+const stocks = [
+  {icon : <ImArrowDownRight2 className='text-[36px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowUpRight2 className='text-[36px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowUpRight2 className='text-[36px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowDownRight2 className='text-[36px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'}
+]
 
 export default function Home() {
+  const [value, onChange] = useState(new Date());
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className='min-h-screen bg-[#F8F9FA]'>
+      <nav className='flex h-[72px] border border-b'>
+        <div className='flex items-center justify-center w-[264px]'>
+          <Image src={TruffleLogo} alt="logo" />
+        </div>
+        <div className='flex items-center justify-between flex-1 px-6'>
+          <div className='text-[#252F40] text-[24px] font-[700]'>Dashboard</div>
+          <div className='flex items-center text-[#67748E] text-[14px] gap-2'>
+            <HiUserCircle />
+            <span>Evan Winter</span>
+            <IoMdNotifications />
+          </div>
+        </div>
+      </nav>
+      <div className='flex'>
+        <Sidebar />
+        <div className='h-[calc(100vh-72px)] flex-1 py-3.5 px-6'>
+
+          {/* top indicator bar */}
+          <div className='flex bg-[#8553FB] px-5 py-4 gap-5 rounded-[8px] mb-2'>
+            <Image src={InfoImg} alt='icon' width={32} height={27} />
+            <div className='flex flex-col text-white'>
+              <div className='text-[12px] font-[500]'>Plese complete the KYC</div>
+              <div className='text-[10px]'>Please follow the instructions in the email to complete account verification. Make sure to check your promotions/spam as well. </div>
+            </div>
+          </div>
+
+          {/* grid */}
+          <div className='grid grid-cols-12 gap-5 my-5'>
+
+            <div className='grid grid-cols-2 col-span-8 gap-5 '>
+              {balanceMenu.map(balanceItem => (
+                <div key={balanceItem.name} className='flex items-center justify-between h-[120px] bg-white py-7 px-6 rounded-[16px] shadow-design'>
+                  <div className='flex flex-col'>
+                    <div className='text-[#67748E] text-[16px]'>{balanceItem.name}</div>
+                    <div className='text-[#252F40] text-[24px] font-[700]'>{balanceItem.balance}</div>
+                  </div>
+                  <Image src={balanceItem.icon} alt='icon' width={60} height={60} />
+                </div>
+              ))}
+            </div>
+
+            <div className='col-span-4 bg-white rounded-[16px] shadow-design'>
+              <div className='m-4'>
+                <Calendar className='w-full border-none' onChange={onChange} value={value} />
+              </div>
+              <hr className='w-3/4 mx-auto ' />
+              <div className='my-4'>
+
+                {stocks.map(stock => (
+                  <div className='flex items-center justify-between text-[#111827] my-2 mx-4 p-4'>
+                    <div className='flex items-center gap-4'>
+                      {stock.icon}
+                      <div className='flex flex-col'>
+                        <div className='text-[16px] font-[500]'>{stock.stock}</div>
+                        <div className='text-[12px]'>{stock.id}</div>
+                      </div>
+                    </div>
+                    <div className='text-[16px] font-[500]'>{stock.value}</div>
+                  </div>
+                ))}
+
+
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <div></div>
     </main>
   )
 }
