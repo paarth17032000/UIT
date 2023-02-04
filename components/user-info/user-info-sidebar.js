@@ -1,51 +1,42 @@
-export default function UserInfoSidebar() {
+import completeImg from '@/public/assets/icons/dashboard-icons/Circle-complete.png'
+import EmptyImg from '@/public/assets/icons/dashboard-icons/Circle-empty.png'
+import Image from 'next/image';
+
+export default function UserInfoSidebar({processes, currentStep}) {
   return (
-    <ol className="relative text-gray-500 border-l border-gray-200 dark:border-gray-200 dark:text-gray-400 m-12 h-[250px]">
-
-        <li className="flex items-center mb-14 ml-6">
-            <span className="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-4 ring-white ">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="30" height="30" rx="15" fill="white"/>
-                <circle cx="16" cy="16" r="5" fill="#7445F8"/>
-                <rect x="1" y="1" width="30" height="30" rx="15" stroke="#7445F8" stroke-width="2"/>
-                </svg>
-            </span>
-            <h3 className="text-[#7445F8] text-[12px] font-[600] font-medium leading-tight">USER INFORMATION</h3>
-        </li>
-
-        <li className="flex items-center mb-14 ml-6">
-            <span className="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-4 ring-white ">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="30" height="30" rx="15" fill="white"/>
-                <circle cx="16" cy="16" r="5" fill="#7445F8"/>
-                <rect x="1" y="1" width="30" height="30" rx="15" stroke="#7445F8" stroke-width="2"/>
-                </svg>
-            </span>
-            <h3 className="text-[#6B7280] text-[12px] font-[600] font-medium leading-tight">ADMIN AND OPERATIONS</h3>
-        </li>
-
-        <li className="flex items-center mb-14 ml-6">
-            <span className="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-4 ring-white ">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="30" height="30" rx="15" fill="white"/>
-                <circle cx="16" cy="16" r="5" fill="#7445F8"/>
-                <rect x="1" y="1" width="30" height="30" rx="15" stroke="#7445F8" stroke-width="2"/>
-                </svg>
-            </span>
-            <h3 className="text-[#6B7280] text-[12px] font-[600] font-medium leading-tight">BUSINESS INFORMATION</h3>
-        </li>
-
-        <li className="flex items-center mb-14 ml-6">
-            <span className="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-4 ring-white ">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="30" height="30" rx="15" fill="white"/>
-                <circle cx="16" cy="16" r="5" fill="#7445F8"/>
-                <rect x="1" y="1" width="30" height="30" rx="15" stroke="#7445F8" stroke-width="2"/>
-                </svg>
-            </span>
-            <h3 className="text-[#6B7280] text-[12px] font-[600] font-medium leading-tight">UPLOAD DOCUMENTS</h3>
-        </li>
-
-    </ol>
+    <div className='flex p-12 flex-col w-[400px] bg-[#FAFAFA] min-h-[calc(100vh-72px)]'>
+        {processes.map(process => {
+            const { name, className, idleImage, lineDiv, stepNumber, completedLine } = process;
+            return (
+                <div className={`flex gap-3 ${className}`}>
+                    <div className="items-center">
+                    { (stepNumber < currentStep) ? (
+                            <>
+                                <Image src={completeImg} alt="icon" width={24} height={24} />
+                                {completedLine}
+                            </>
+                        ) : (stepNumber === currentStep) ? (
+                            <>
+                                <Image src={idleImage} alt="icon" width={24} height={24} />
+                                {lineDiv}
+                            </>
+                        ) : (
+                            <>
+                                <Image src={EmptyImg} alt="icon" width={24} height={24} />
+                                {lineDiv}
+                            </>
+                        )}
+                    </div>
+                    {(stepNumber < currentStep) ? (
+                            <div className="text-[#14142B] text-[14px] font-[600]">{name}</div>
+                        ) : (stepNumber === currentStep) ? (
+                            <div className="text-[#7445F8] text-[12px] font-[600] font-medium ">{name}</div>
+                        ) : (
+                            <div className="text-[#6B7280] text-[12px] font-[600] font-medium leading-tight">{name}</div>
+                        )}
+                </div>
+            );
+        })}
+    </div>
   )
 }
