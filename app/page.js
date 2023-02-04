@@ -23,10 +23,12 @@ const balanceMenu = [
 ]
 
 const stocks = [
-  {icon : <ImArrowDownRight2 className='text-[36px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
-  {icon : <ImArrowUpRight2 className='text-[36px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
-  {icon : <ImArrowUpRight2 className='text-[36px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
-  {icon : <ImArrowDownRight2 className='text-[36px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'}
+  {icon : <ImArrowDownRight2 className='text-[32px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowUpRight2 className='text-[32px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowUpRight2 className='text-[32px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowDownRight2 className='text-[32px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowUpRight2 className='text-[32px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
+  {icon : <ImArrowDownRight2 className='text-[32px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
 ]
 
 const data = {
@@ -99,7 +101,7 @@ export default function Home() {
                   <Image src={balanceItem.icon} alt='icon' width={60} height={60} />
                 </div>
               ))}
-              <div className='col-span-2 bg-white px-6 py-4 rounded-[16px]'><Line data={data} /></div>
+              <div className='col-span-2 bg-white px-6 py-4 rounded-[16px] shadow-design'><Line data={data} /></div>
             </div>
 
             <div className='col-span-4 bg-white rounded-[16px] shadow-design'>
