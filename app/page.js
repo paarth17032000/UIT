@@ -1,6 +1,9 @@
 "use client"
+import { useState } from 'react';
 import Image from 'next/image'
 import Calendar from 'react-calendar';
+import { Line } from 'react-chartjs-2'
+import {Chart as ChartJs} from 'chart.js/auto'
 import { HiUserCircle } from 'react-icons/hi'
 import { IoMdNotifications } from 'react-icons/io'
 import {ImArrowUpRight2} from 'react-icons/im'
@@ -10,7 +13,6 @@ import Sidebar from '@/components/dashboard/sidebar'
 import DashboardImg1 from '../public/assets/icons/dashboard-icons/dashboard-icon-1.png'
 import DashboardImg2 from '../public/assets/icons/dashboard-icons/dashboard-icon-2.png'
 import InfoImg from '../public/assets/icons/dashboard-icons/dashboard-icon-info.png'
-import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 
 const balanceMenu = [
@@ -26,6 +28,32 @@ const stocks = [
   {icon : <ImArrowUpRight2 className='text-[36px] text-green-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'},
   {icon : <ImArrowDownRight2 className='text-[36px] text-red-400' />, stock: 'QUICKSILVER LLC', id: 'TFID: 8045780', value: '$ 145,000.00'}
 ]
+
+const data = {
+  labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  legend: {
+    position: "bottom"
+  },
+  title: {
+    display: true,
+    text: "Chart.js Line Chart"
+  },
+  datasets: [
+    {
+      label: "Assets",
+      data: [60, 25, 300, 200, 500, 300, 400, 250, 450],
+      fill: false,
+      borderColor: "#82D616"
+    },
+    {
+      label: "Liabilities",
+      data: [40, 100, 200, 25, 150, 100, 440, 80, 350],
+      fill: false,
+      borderColor: "#FF8540"
+    }
+  ]
+};
+
 
 export default function Home() {
   const [value, onChange] = useState(new Date());
@@ -44,9 +72,10 @@ export default function Home() {
           </div>
         </div>
       </nav>
+
       <div className='flex'>
         <Sidebar />
-        <div className='h-[calc(100vh-72px)] flex-1 py-3.5 px-6'>
+        <div className='min-h-[calc(100vh-72px)] flex-1 py-3.5 px-6'>
 
           {/* top indicator bar */}
           <div className='flex bg-[#8553FB] px-5 py-4 gap-5 rounded-[8px] mb-2'>
@@ -70,6 +99,7 @@ export default function Home() {
                   <Image src={balanceItem.icon} alt='icon' width={60} height={60} />
                 </div>
               ))}
+              <div className='col-span-2 bg-white px-6 py-4 rounded-[16px]'><Line data={data} /></div>
             </div>
 
             <div className='col-span-4 bg-white rounded-[16px] shadow-design'>
@@ -79,8 +109,8 @@ export default function Home() {
               <hr className='w-3/4 mx-auto ' />
               <div className='my-4'>
 
-                {stocks.map(stock => (
-                  <div className='flex items-center justify-between text-[#111827] my-2 mx-4 p-4'>
+                {stocks.map((stock, index) => (
+                  <div key={index} className='flex items-center justify-between text-[#111827] my-2 mx-4 p-4'>
                     <div className='flex items-center gap-4'>
                       {stock.icon}
                       <div className='flex flex-col'>

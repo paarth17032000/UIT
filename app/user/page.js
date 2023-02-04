@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import UserInfo from "@/components/user-info/user-info";
 import AdminOperation from "@/components/user-info/admin-operation";
 import UserInfoSidebar from "@/components/user-info/user-info-sidebar";
+import Link from "next/link";
 
 
 export default function User() {
@@ -47,7 +48,9 @@ export default function User() {
     return (
         <main className='min-h-screen'>
              <nav className='flex items-center justify-between h-[72px] border border-b px-12'>
+                <Link href={'/'}>
                     <Image src={TruffleLogo} alt="logo" width={166}  />
+                </Link>
             
                 <div className='text-[#67748E] text-[14px]'>
                     Having Trouble?<span className="text-[#7445F8] font-[600] cursor-pointer ml-1">Get Help</span>
@@ -56,12 +59,10 @@ export default function User() {
 
             <div className="flex">
 
+                {/* sidebar */}
                 <div className='flex w-[400px] bg-[#FAFAFA] min-h-[calc(100vh-72px)]'>
-
                     <UserInfoSidebar />
-
                 </div>
-
 
                 {/* main area */}
                 <div className='flex-1 min-h-[calc(100vh-72px)] py-12 px-24'>
@@ -71,7 +72,6 @@ export default function User() {
                     </div>
 
                     {currentStep === 1 ?  <UserInfo /> : <AdminOperation />}
-                   
 
                     <div className="flex items-center justify-between mt-8 text-[16px] font-[500]">
                         <button disabled={currentStep === 1} onClick={handleBack} className="text-[#374151] py-2 px-10 inline-block rounded-[6px] border border-[#D1D5DB] cursor-pointer shadow-md">Back</button>
